@@ -7,53 +7,56 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
-public class MainPage {
+public class MainPage extends BasePage {
 
-    public static WebDriver driver= null;
+    public MainPage(WebDriver driver)
+    {
+        super(driver);
+    }
 
     //Locators
-    public static WebElement new_user_button = driver.findElement(By.linkText(" Add User"));
-    public static WebElement firstNameField = driver.findElement(By.name("FirstName"));
-    public static WebElement lastNameField = driver.findElement(By.name("LastName"));
-    public static WebElement passwordField = driver.findElement(By.name("Password"));
-    public static WebElement roleDropdown = driver.findElement(By.className("ng-scope"));
-    public static List<WebElement> roleList = driver.findElements(By.className("ng-scope"));
-    public static WebElement customerRadioA = driver.findElement(By.xpath("//input[@name='optionsRadios'][@value='15']"));
-    public static WebElement customerRadioB = driver.findElement(By.xpath("//input[@name='optionsRadios'][@value='16']"));
-    public static List<WebElement> radioList = driver.findElements(By.className("radio"));
-    public static WebElement emailField = driver.findElement(By.name("Email"));
-    public static WebElement cellPhoneField = driver.findElement(By.name("Mobilephone"));
-    public static WebElement saveButton = driver.findElement(By.className("btn btn-success"));
-    public static WebElement cancelButton = driver.findElement(By.className("btn btn-danger"));
-    public static WebElement searchBox = driver.findElement(By.xpath("//input[@placeholder='Search']"));
-    public static WebElement deleteButton = driver.findElement(By.xpath("//button[@ng-click='delUser()']"));
-    public static WebElement okButton = driver.findElement(By.xpath("//button[text()='OK']"));
-    public static WebElement editButton = driver.findElement(By.xpath("//button[@type='edit']"));
+    public final By new_user_button = By.xpath("//button[contains(.,'Add User')]");
+    public final By firstNameField = By.name("FirstName");
+    public final By lastNameField = By.name("LastName");
+    public final By userNameField = By.name("UserName");
+    public final By passwordField = By.name("Password");
+    public final By roleDropdown = By.className("ng-scope");
+    public final By roleList = By.name("RoleId");
+    public final By customerRadioA = By.xpath("//input[@name='optionsRadios'][@value='15']");
+    public final By customerRadioB = By.xpath("//input[@name='optionsRadios'][@value='16']");
+    public final By radioList = By.className("radio");
+    public final By emailField = By.name("Email");
+    public final By cellPhoneField = By.name("Mobilephone");
+    public final By saveButton = By.className("btn-success");
+    public final By cancelButton = By.className("btn-danger");
+    public final By searchBox = By.xpath("//input[@placeholder='Search']");
+    public final By deleteButton = By.xpath("//button[@ng-click='delUser()']");
+    public final By okButton = By.xpath("//button[text()='OK']");
+    public final By editButton = By.xpath("//button[@type='edit']");
 
 
     //Functions
-    public static void browseUrl(String url){
-        driver.get(url);
+    public  void browseUrl(String url){getDriver().get(url);
     }
-    public static void newUserButtonClick(){
-        new_user_button.click();
+    public void newUserButtonClick() {getDriver().findElement(new_user_button).click(); }
+
+    public  void firstNameInput(String firstName){getDriver().findElement(firstNameField).sendKeys(firstName);
     }
 
-    public static void firstNameInput(String firstName){
-        firstNameField.sendKeys(firstName);
+    public  void lastNameInput(String lastName){getDriver().findElement(lastNameField).sendKeys(lastName);
     }
 
-    public static void lastNameInput(String lastName){
-        lastNameField.sendKeys(lastName);
+    public void userNameInput(String userName){
+        getDriver().findElement(userNameField).sendKeys(userName);
     }
 
-    public static void passwordInput(String password){
-        passwordField.sendKeys(password);
+    public  void passwordInput(String password){getElement(passwordField).sendKeys(password);
     }
 
-    public static void roleSelection(String role) {
-        Select roleDropdownSelect = new Select(roleDropdown);
+    public  void roleSelection(String role) {
+        Select roleDropdownSelect = new Select(getElement(roleDropdown));
         if (role == "Sales Team") {
             roleDropdownSelect.selectByVisibleText("Sales Team");
         } else if (role == "Customer") {
@@ -65,26 +68,29 @@ public class MainPage {
         }
     }
 
-    public static void roleSelectionByList(String role) {
-        for (WebElement element: roleList) {
+    public  void roleSelectionByList(String role) {
+/*        for (WebElement element: driver.findElements(roleList)) {
             if(element.getText().equals(role)){
                 element.click();
                 return;
             }
-        }
+        }*/
+        getDriver().findElement(roleList).click();
+        new Select(getElement(roleList)).selectByVisibleText(role);
+
     }
-    public static void customerRadioButton(String company) {
+    public  void customerRadioButton(String company) {
         if(company == "A"){
-            customerRadioA.click();
+            driver.findElement(customerRadioA).click();
         } else if (company == "B") {
-            customerRadioB.click();
+            driver.findElement(customerRadioB).click();
         }else {
             System.out.println("Invalid input. Pick betweeen A and B");
         }
     }
 
-    public static void customerRadioButtonByList(String company) {
-        for (WebElement element: radioList) {
+    public  void customerRadioButtonByList(String company) {
+        for (WebElement element: driver.findElements(radioList)) {
             if(element.getText().equals(company)){
                  element.click();
                  return;
@@ -93,48 +99,67 @@ public class MainPage {
     }
 
 
-    public static void emailInput(String email){
-        emailField.sendKeys(email);
+    public  void emailInput(String email){driver.findElement(emailField).sendKeys(email);
     }
 
-    public static void cellPhoneInput(String cellPhone){
-        cellPhoneField.sendKeys(cellPhone);
+    public  void cellPhoneInput(String cellPhone){driver.findElement(cellPhoneField).sendKeys(cellPhone);
     }
 
-    public static void saveButtonClick(){
-        saveButton.click();
+    public  void saveButtonClick(){driver.findElement(saveButton).click();
     }
 
-    public static void cancelButtonClick(){
-        cancelButton.click();
+    public  void cancelButtonClick(){driver.findElement(cancelButton).click();
     }
 
-    public static void createUserCustomer(){
+    public  void createUserCustomer(){
         newUserButtonClick();
         firstNameInput("Sebastian");
         lastNameInput("Test");
+        userNameInput("sebaTest");
         passwordInput("123");
-        roleSelectionByList("Customer");
         customerRadioButtonByList("Company AAA");
+        roleSelectionByList("Customer");
         emailInput("sebatest@gmail.com");
         cellPhoneInput("5555353323");
         saveButtonClick();
     }
 
-    public static void searchNewUser(String userEmail){
-        searchBox.sendKeys(userEmail);
-        if(editButton.isDisplayed()){
-            System.out.println("User was created successfully");
+    public  void searchNewUser(String userEmail){
+        searchUser(userEmail);
+
+    }
+
+    public  void deleteUser(String userName) {
+        searchUser(userName);
+        driver.findElement(deleteButton).click();
+        driver.findElement(okButton).click();
+    }
+
+    public  void searchUser(String userEmail){
+        driver.findElement(searchBox).clear();
+        driver.findElement(searchBox).sendKeys(userEmail);
+    }
+
+    public boolean editButtonDisplayed(){
+        if(driver.findElement(editButton).isDisplayed()) {
+            System.out.println("Element is displayed");
+            return true;
+        }else {
+            System.out.println("User was deleted properly");
+            return false;
         }
     }
 
-    public static void deleteUser(String userName) {
-        searchBox.sendKeys(userName);
-        deleteButton.click();
-        okButton.click();
-    }
+    public boolean validateUser() {
+        try
+        {
+            driver.findElement(editButton).isDisplayed();
+            return true;
+        }
+        catch (Exception e)
+        {
+            return false;
+        }
 
-    public static void searchUser(String userEmail){
-        searchBox.sendKeys(userEmail);
     }
 }

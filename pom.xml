@@ -17,7 +17,7 @@
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
       <artifactId>selenium-java</artifactId>
-      <version>4.0.0</version>
+      <version>4.8.1</version>
     </dependency>
     <dependency>
       <groupId>io.github.pityka</groupId>
@@ -70,6 +70,11 @@
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
       <version>5.2.3</version>
+    </dependency>
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-http-jdk-client</artifactId>
+      <version>4.8.1</version>
     </dependency>
   </dependencies>
 </project>
