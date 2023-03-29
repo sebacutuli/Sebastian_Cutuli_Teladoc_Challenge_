@@ -69,16 +69,10 @@ public class MainPage extends BasePage {
     }
 
     public  void roleSelectionByList(String role) {
-/*        for (WebElement element: driver.findElements(roleList)) {
-            if(element.getText().equals(role)){
-                element.click();
-                return;
-            }
-        }*/
-        getDriver().findElement(roleList).click();
+        driver.findElement(roleList).click();
         new Select(getElement(roleList)).selectByVisibleText(role);
-
     }
+
     public  void customerRadioButton(String company) {
         if(company == "A"){
             driver.findElement(customerRadioA).click();
