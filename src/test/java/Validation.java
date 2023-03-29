@@ -55,9 +55,8 @@ public class Validation {
     }
 
     public void validateUserDeletion () {
-        mpObj.browseUrl("https://www.way2automation.com/angularjs-protractor/webtables/");
         mpObj.searchUser("asa@asd.cz");
-        mpObj.editButtonDisplayed();
+        Assert.assertFalse(mpObj.editButtonDisplayed(), "User was deleted properly");
     }
 }
 

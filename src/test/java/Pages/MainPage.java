@@ -38,24 +38,24 @@ public class MainPage extends BasePage {
 
 
     //Functions
-    public  void browseUrl(String url){getDriver().get(url);
+    public void browseUrl(String url){getDriver().get(url);
     }
     public void newUserButtonClick() {getDriver().findElement(new_user_button).click(); }
 
-    public  void firstNameInput(String firstName){getDriver().findElement(firstNameField).sendKeys(firstName);
+    public void firstNameInput(String firstName){getDriver().findElement(firstNameField).sendKeys(firstName);
     }
 
-    public  void lastNameInput(String lastName){getDriver().findElement(lastNameField).sendKeys(lastName);
+    public void lastNameInput(String lastName){getDriver().findElement(lastNameField).sendKeys(lastName);
     }
 
     public void userNameInput(String userName){
         getDriver().findElement(userNameField).sendKeys(userName);
     }
 
-    public  void passwordInput(String password){getElement(passwordField).sendKeys(password);
+    public void passwordInput(String password){getElement(passwordField).sendKeys(password);
     }
 
-    public  void roleSelection(String role) {
+    public void roleSelection(String role) {
         Select roleDropdownSelect = new Select(getElement(roleDropdown));
         if (role == "Sales Team") {
             roleDropdownSelect.selectByVisibleText("Sales Team");
@@ -68,18 +68,12 @@ public class MainPage extends BasePage {
         }
     }
 
-    public  void roleSelectionByList(String role) {
-/*        for (WebElement element: driver.findElements(roleList)) {
-            if(element.getText().equals(role)){
-                element.click();
-                return;
-            }
-        }*/
-        getDriver().findElement(roleList).click();
+    public void roleSelectionByList(String role) {
+        driver.findElement(roleList).click();
         new Select(getElement(roleList)).selectByVisibleText(role);
-
     }
-    public  void customerRadioButton(String company) {
+
+    public void customerRadioButton(String company) {
         if(company == "A"){
             driver.findElement(customerRadioA).click();
         } else if (company == "B") {
@@ -89,7 +83,7 @@ public class MainPage extends BasePage {
         }
     }
 
-    public  void customerRadioButtonByList(String company) {
+    public void customerRadioButtonByList(String company) {
         for (WebElement element: driver.findElements(radioList)) {
             if(element.getText().equals(company)){
                  element.click();
@@ -99,19 +93,19 @@ public class MainPage extends BasePage {
     }
 
 
-    public  void emailInput(String email){driver.findElement(emailField).sendKeys(email);
+    public void emailInput(String email){driver.findElement(emailField).sendKeys(email);
     }
 
-    public  void cellPhoneInput(String cellPhone){driver.findElement(cellPhoneField).sendKeys(cellPhone);
+    public void cellPhoneInput(String cellPhone){driver.findElement(cellPhoneField).sendKeys(cellPhone);
     }
 
-    public  void saveButtonClick(){driver.findElement(saveButton).click();
+    public void saveButtonClick(){driver.findElement(saveButton).click();
     }
 
-    public  void cancelButtonClick(){driver.findElement(cancelButton).click();
+    public void cancelButtonClick(){driver.findElement(cancelButton).click();
     }
 
-    public  void createUserCustomer(){
+    public void createUserCustomer(){
         newUserButtonClick();
         firstNameInput("Sebastian");
         lastNameInput("Test");
@@ -124,25 +118,23 @@ public class MainPage extends BasePage {
         saveButtonClick();
     }
 
-    public  void searchNewUser(String userEmail){
+    public void searchNewUser(String userEmail){
         searchUser(userEmail);
-
     }
 
-    public  void deleteUser(String userName) {
+    public void deleteUser(String userName) {
         searchUser(userName);
         driver.findElement(deleteButton).click();
         driver.findElement(okButton).click();
     }
 
-    public  void searchUser(String userEmail){
+    public void searchUser(String userEmail){
         driver.findElement(searchBox).clear();
         driver.findElement(searchBox).sendKeys(userEmail);
     }
 
     public boolean editButtonDisplayed(){
         if(driver.findElement(editButton).isDisplayed()) {
-            System.out.println("Element is displayed");
             return true;
         }else {
             System.out.println("User was deleted properly");
