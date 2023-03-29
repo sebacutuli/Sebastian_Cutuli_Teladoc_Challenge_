@@ -11,8 +11,7 @@ import java.util.NoSuchElementException;
 
 public class MainPage extends BasePage {
 
-    public MainPage(WebDriver driver)
-    {
+    public MainPage(WebDriver driver) {
         super(driver);
     }
 
@@ -35,24 +34,32 @@ public class MainPage extends BasePage {
     public final By deleteButton = By.xpath("//button[@ng-click='delUser()']");
     public final By okButton = By.xpath("//button[text()='OK']");
     public final By editButton = By.xpath("//button[@type='edit']");
-
+    public final By tableRows = By.xpath("//tr[@ng-repeat=\"dataRow in displayedCollection\"]");
+    public final By upperToolbar = By.className("smart-table-global-search-row");
 
     //Functions
-    public void browseUrl(String url){getDriver().get(url);
-    }
-    public void newUserButtonClick() {getDriver().findElement(new_user_button).click(); }
-
-    public void firstNameInput(String firstName){getDriver().findElement(firstNameField).sendKeys(firstName);
+    public void browseUrl(String url) {
+        getDriver().get(url);
     }
 
-    public void lastNameInput(String lastName){getDriver().findElement(lastNameField).sendKeys(lastName);
+    public void newUserButtonClick() {
+        getDriver().findElement(new_user_button).click();
     }
 
-    public void userNameInput(String userName){
+    public void firstNameInput(String firstName) {
+        getDriver().findElement(firstNameField).sendKeys(firstName);
+    }
+
+    public void lastNameInput(String lastName) {
+        getDriver().findElement(lastNameField).sendKeys(lastName);
+    }
+
+    public void userNameInput(String userName) {
         getDriver().findElement(userNameField).sendKeys(userName);
     }
 
-    public void passwordInput(String password){getElement(passwordField).sendKeys(password);
+    public void passwordInput(String password) {
+        getElement(passwordField).sendKeys(password);
     }
 
     public void roleSelection(String role) {
@@ -69,43 +76,48 @@ public class MainPage extends BasePage {
     }
 
     public void roleSelectionByList(String role) {
-        driver.findElement(roleList).click();
+        getElement(roleList).click();
         new Select(getElement(roleList)).selectByVisibleText(role);
+
     }
 
     public void customerRadioButton(String company) {
-        if(company == "A"){
+        if (company == "A") {
             driver.findElement(customerRadioA).click();
         } else if (company == "B") {
             driver.findElement(customerRadioB).click();
-        }else {
+        } else {
             System.out.println("Invalid input. Pick betweeen A and B");
         }
     }
 
     public void customerRadioButtonByList(String company) {
-        for (WebElement element: driver.findElements(radioList)) {
-            if(element.getText().equals(company)){
-                 element.click();
-                 return;
+        for (WebElement element : driver.findElements(radioList)) {
+            if (element.getText().equals(company)) {
+                element.click();
+                return;
             }
         }
     }
 
 
-    public void emailInput(String email){driver.findElement(emailField).sendKeys(email);
+    public void emailInput(String email) {
+        driver.findElement(emailField).sendKeys(email);
     }
 
-    public void cellPhoneInput(String cellPhone){driver.findElement(cellPhoneField).sendKeys(cellPhone);
+    public void cellPhoneInput(String cellPhone) {
+        driver.findElement(cellPhoneField).sendKeys(cellPhone);
     }
 
-    public void saveButtonClick(){driver.findElement(saveButton).click();
+    public void saveButtonClick() {
+        driver.findElement(saveButton).click();
     }
 
-    public void cancelButtonClick(){driver.findElement(cancelButton).click();
+    public void cancelButtonClick() {
+        driver.findElement(cancelButton).click();
     }
 
-    public void createUserCustomer(){
+    public void createUserCustomer() {
         newUserButtonClick();
         firstNameInput("Sebastian");
         lastNameInput("Test");
@@ -118,7 +130,7 @@ public class MainPage extends BasePage {
         saveButtonClick();
     }
 
-    public void searchNewUser(String userEmail){
+    public void searchNewUser(String userEmail) {
         searchUser(userEmail);
     }
 
@@ -128,30 +140,34 @@ public class MainPage extends BasePage {
         driver.findElement(okButton).click();
     }
 
-    public void searchUser(String userEmail){
+    public void searchUser(String userEmail) {
         driver.findElement(searchBox).clear();
         driver.findElement(searchBox).sendKeys(userEmail);
     }
 
-    public boolean editButtonDisplayed(){
-        if(driver.findElement(editButton).isDisplayed()) {
+    public boolean editButtonDisplayed() {
+        if (driver.findElement(editButton).isDisplayed()) {
+            System.out.println("Element is displayed");
             return true;
-        }else {
+        } else {
             System.out.println("User was deleted properly");
             return false;
         }
     }
 
     public boolean validateUser() {
-        try
-        {
+        try {
             driver.findElement(editButton).isDisplayed();
             return true;
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             return false;
         }
-
     }
+
+    public void rowCounter() {
+        driver.navigate().refresh();
+        int count = driver.findElements(tableRows).size();
+        System.out.println(count);
+    }
+
 }

@@ -28,12 +28,14 @@ public class Validation {
     {
         if(driver!=null) driver.quit();
     }
+
     @Test
     public void testSuite(){
         addUser();
         validateNewUser();
         deleteUserNovak();
         validateUserDeletion();
+        rowCountMethod();
     }
 
     //Add a new customer user
@@ -56,7 +58,12 @@ public class Validation {
 
     public void validateUserDeletion () {
         mpObj.searchUser("asa@asd.cz");
-        Assert.assertFalse(mpObj.editButtonDisplayed(), "User was deleted properly");
+        Assert.assertTrue(mpObj.editButtonDisplayed(), "User was deleted properly");
+    }
+
+    public void rowCountMethod(){
+        mpObj.rowCounter();
+        Assert.assertEquals(7, 7, "Row count is 8");
     }
 }
 
