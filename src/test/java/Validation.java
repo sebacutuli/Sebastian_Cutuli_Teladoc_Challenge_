@@ -63,7 +63,7 @@ public class Validation {
 
     public void rowCountMethod(){
         mpObj.rowCounter();
-        Assert.assertEquals(7, 7, "Row count is 8");
+        Assert.assertEquals(7, 7, "Row count is 7");
     }
 }
 
